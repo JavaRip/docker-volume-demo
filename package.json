@@ -1,0 +1,21 @@
+{
+  "name": "docker-persistent-storage-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "bash test.sh",
+    "start": "node server.js",
+    "build": "docker volume create time-logs-volume && docker build . -t volume-demo-image",
+    "start-image": "docker run --rm -p 3000:3000 --name volume-demo-container --mount source=time-logs-volume,target=/app/output/ volume-demo-image &",
+    "stop-image": "docker stop volume-demo-container",
+    "delete-volume": "docker volume rm time-logs-volume",
+    "ping": "curl -s localhost:3000/save-time"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "type": "module"
+}
